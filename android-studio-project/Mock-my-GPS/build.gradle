@@ -2,6 +2,13 @@
 apply from: '../constants.gradle'
 apply plugin: 'com.android.application'
 
+// Modified by zhiqianzheng on 2026-10-17: optional local signing for public releases.
+def addressSigningFile = rootProject.file('signing.properties')
+def addressSigning = new Properties()
+if (addressSigningFile.exists()) {
+    addressSigningFile.withInputStream { addressSigning.load(it) }
+}
+
 android {
     namespace project.ext.app_applicationId
 
@@ -36,7 +43,10 @@ android {
                     }
                 }
 
-                outputFileName = "${archivesBaseName}-${variant.versionName}-${variant.productFlavors[0].name}-${variant.productFlavors[1].name}-${variant.productFlavors[2].name}-${variant.buildType.name}.apk"
+                // This fork has its own version sequence, independent of upstream.
+                output.versionCodeOverride = 10000000
+                output.versionNameOverride = '1.0.0'
+                outputFileName = "${archivesBaseName}-1.0.0-${variant.productFlavors[0].name}-${variant.productFlavors[1].name}-${variant.productFlavors[2].name}-${variant.buildType.name}.apk"
             }
         }
     }
@@ -108,8 +118,22 @@ android {
         buildConfig = true
     }
 
+    signingConfigs {
+        if (addressSigningFile.exists()) {
+            addressRelease {
+                storeFile rootProject.file(addressSigning.getProperty('storeFile'))
+                storePassword addressSigning.getProperty('storePassword')
+                keyAlias addressSigning.getProperty('keyAlias')
+                keyPassword addressSigning.getProperty('keyPassword')
+            }
+        }
+    }
+
     buildTypes {
         release {
+            if (addressSigningFile.exists()) {
+                signingConfig signingConfigs.addressRelease
+            }
             debuggable      false
             jniDebuggable   false
             minifyEnabled   true

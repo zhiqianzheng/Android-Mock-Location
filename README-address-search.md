@@ -1,4 +1,4 @@
-# 地址模拟 GPS（个人测试版）
+# 地址模拟 GPS
 
 维护者：[@zhiqianzheng](https://github.com/zhiqianzheng)。本次功能由维护者提出并验证，开发过程中使用 AI 辅助。修改日期：2026-10-17。
 
@@ -37,6 +37,21 @@ $variant = 'WithAllLanguageTranslationsWithGooglePlayServicesFusedLocationProvid
 .\gradlew.bat ":Mock-my-GPS:assemble${variant}" ":Mock-my-GPS:test${variant}UnitTest" ":Mock-my-GPS:lint${variant}"
 ```
 
-APK 位于 `Mock-my-GPS/build/outputs/apk/withAllLanguageTranslationsWithGooglePlayServicesFusedLocationProviderWithBackupRestoreSAF/debug/`。交付 APK 是本机 debug 签名的个人测试构建；源码归档不包含 SDK、依赖缓存、手机数据、签名私钥或用户 Key。
+测试 APK 位于 `Mock-my-GPS/build/outputs/apk/withAllLanguageTranslationsWithGooglePlayServicesFusedLocationProviderWithBackupRestoreSAF/debug/`。
+
+## 公开 Release 构建
+
+[Releases 下载区](https://github.com/zhiqianzheng/Android-Mock-Location/releases/latest) 提供签名 APK、对应源码和 SHA-256 校验值。公开 APK 使用独立发布密钥，关闭调试。当前仅发布 GMS 版本，需要手机安装并启用 Google Play 服务；不需要安装 Magisk 或取得 root 权限，但必须选择模拟位置应用。系统地址服务不可用时，可以配置自己的高德 Key 或输入坐标。
+
+已有早期 debug 测试包的用户：公开包签名不同，不能直接覆盖安装。请先导出书签、停止模拟服务，卸载旧测试包，再安装公开版本，并重新选择模拟位置应用。此后公开版本使用同一发布密钥更新。请自行保管书签备份。
+
+自行构建签名版本时，在 `android-studio-project/signing.properties` 配置 `storeFile`、`storePassword`、`keyAlias` 和 `keyPassword`；`storeFile` 可使用本机绝对路径。此文件和 `.jks` / `.keystore` 已加入忽略规则，切勿提交密钥或口令。未配置时仍可构建 debug 包，release 包需要自行签名。
+
+```powershell
+$variant = 'WithAllLanguageTranslationsWithGooglePlayServicesFusedLocationProviderWithBackupRestoreSAFRelease'
+.\gradlew.bat ":Mock-my-GPS:assemble${variant}" ":Mock-my-GPS:test${variant}UnitTest" ":Mock-my-GPS:lint${variant}"
+```
+
+源码归档不包含 SDK、依赖缓存、手机数据、签名私钥或用户 Key。公开安装包不会附带个人书签或预设私人地址。
 
 已执行的功能检查：中文“北京天安门”系统搜索、自动转换、启动 Android 与 Google 融合模拟定位、高德蓝点对齐；已有书签迁移与中文名称匹配；停止与重新启动流程。单元测试覆盖国内坐标往返转换、天安门转换、海外不偏移、经纬度填反和无效数字拦截、保存名称的严格匹配。
