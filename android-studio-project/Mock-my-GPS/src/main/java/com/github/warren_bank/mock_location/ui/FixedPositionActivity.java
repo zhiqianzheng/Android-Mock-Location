@@ -1,3 +1,4 @@
+// Modified by zhiqianzheng on 2026-10-17: address-search fork changes, GPL-2.0; original notices retained.
 package com.github.warren_bank.mock_location.ui;
 
 import com.github.warren_bank.mock_location.R;
@@ -15,6 +16,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class FixedPositionActivity extends Activity implements RuntimePermissionsListener {
     private LocPoint originalLoc;
@@ -118,6 +120,13 @@ public class FixedPositionActivity extends Activity implements RuntimePermission
     // =============================================================================================
 
     private void requestPermissions() {
+        try {
+            new LocPoint(input_fixed_position.getText().toString());
+        }
+        catch (NumberFormatException e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            return;
+        }
         RuntimePermissionsRequester requester = (RuntimePermissionsRequester) getParent();
         requester.requestRuntimePermissions();
     }

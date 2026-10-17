@@ -1,3 +1,4 @@
+// Modified by zhiqianzheng on 2026-10-17: address-search fork changes, GPL-2.0; original notices retained.
 package com.github.warren_bank.mock_location.service.looper;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -23,6 +24,9 @@ public class GmsMockLocationProviderManager {
             client = LocationServices.getFusedLocationProviderClient(context);
             client.setMockMode(true);
         }
+        catch (SecurityException e) {
+            stopMockingLocation();
+        }
         catch (Exception e) {
             stopMockingLocation();
         }
@@ -34,6 +38,7 @@ public class GmsMockLocationProviderManager {
                 Location mockLocation = MockLocationProvider.getLocation(lat, lon, advanceTimeMillis);
                 client.setMockLocation(mockLocation);
             }
+            catch (SecurityException e) { stopMockingLocation(); }
             catch (Exception e) {}
         }
     }
@@ -43,6 +48,7 @@ public class GmsMockLocationProviderManager {
             try {
                 client.setMockMode(false);
             }
+            catch(SecurityException e) {}
             catch(Exception e) {}
             client = null;
         }

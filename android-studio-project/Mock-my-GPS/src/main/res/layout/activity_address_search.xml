@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Modified by zhiqianzheng on 2026-10-17: address-search fork changes, GPL-2.0; original notices retained. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:padding="16dp">
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="@string/address_heading" android:textSize="22sp" android:textColor="#153F45" />
+    <EditText android:id="@+id/address_query" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:hint="@string/address_hint" android:inputType="textPostalAddress" android:singleLine="true"
+        android:maxLength="160" android:imeOptions="actionSearch" android:minHeight="56dp" />
+    <EditText android:id="@+id/address_city" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:hint="@string/address_city_hint" android:inputType="text" android:singleLine="true" android:maxLength="50" android:minHeight="48dp" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+        <Button android:id="@+id/address_search" android:layout_width="0dp" android:layout_weight="1"
+            android:layout_height="wrap_content" android:minHeight="48dp" android:text="@string/address_search" />
+        <Button android:id="@+id/address_settings" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:minHeight="48dp" android:text="@string/address_settings" />
+    </LinearLayout>
+    <TextView android:id="@+id/address_provider" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="13sp" />
+    <TextView android:id="@+id/address_status" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:paddingTop="12dp" android:paddingBottom="12dp" android:text="@string/address_empty" android:textSize="15sp" />
+    <ListView android:id="@+id/address_results" android:layout_width="match_parent" android:layout_height="0dp"
+        android:layout_weight="1" android:choiceMode="singleChoice" android:dividerHeight="1dp" />
+    <TextView android:id="@+id/address_active" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:textColor="#006B65" android:paddingTop="8dp" android:paddingBottom="8dp" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+        <Button android:id="@+id/address_manual" android:layout_width="0dp" android:layout_weight="1"
+            android:layout_height="wrap_content" android:minHeight="48dp" android:text="@string/address_manual" />
+        <Button android:id="@+id/address_stop" android:layout_width="0dp" android:layout_weight="1"
+            android:layout_height="wrap_content" android:minHeight="48dp" android:text="@string/address_stop" />
+    </LinearLayout>
+</LinearLayout>

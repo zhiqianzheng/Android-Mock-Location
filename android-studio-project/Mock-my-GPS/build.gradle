@@ -1,3 +1,4 @@
+// Modified by zhiqianzheng on 2026-10-17: address-search fork changes, GPL-2.0; original notices retained.
 apply from: '../constants.gradle'
 apply plugin: 'com.android.application'
 
@@ -13,7 +14,7 @@ android {
     }
 
     defaultConfig {
-        applicationId    project.ext.app_applicationId
+        applicationId    project.ext.app_applicationId + '.address'
         targetSdk project.ext.targetSdk
 
         applicationVariants.all { variant ->
@@ -164,14 +165,13 @@ androidComponents {
             }
         }
         else if (variant.buildType == "debug") {
-            if (variantName.contains("withalllanguagetranslations")) {
-                variant.enable = false
-            }
+            // Keep Chinese translations available in the personal debug build.
         }
     }
 }
 
 dependencies {
+    testImplementation 'junit:junit:4.13.2'
     implementation project(':Mock-my-GPS-UnifiedNlp-Backend-artifacts')
 
     implementation 'com.google.code.gson:gson:'    + '2.8.6'                                                                    // (235 KB) https://mvnrepository.com/artifact/com.google.code.gson/gson

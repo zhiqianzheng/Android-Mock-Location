@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Modified by zhiqianzheng on 2026-10-17: address-search fork changes, GPL-2.0; original notices retained. -->
+<resources>
+    <string name="address_app_name">地址模拟 GPS</string>
+    <string name="address_heading">输入地址，选择地点</string>
+    <string name="address_hint">例如：北京天安门</string>
+    <string name="address_city_hint">城市（选填，例如：北京）</string>
+    <string name="address_search">搜索地址</string>
+    <string name="address_settings">搜索设置</string>
+    <string name="address_manual">坐标与书签</string>
+    <string name="address_stop">停止模拟</string>
+    <string name="address_empty">输入中文地址或地点名称，搜索后选择正确的地点并启动。</string>
+</resources>

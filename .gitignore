@@ -27,3 +27,11 @@ out
 # Other
 .DS_Store
 local.properties
+
+# Modified by zhiqianzheng on 2026-10-17: exclude local credentials and signing material.
+*.jks
+*.keystore
+keystore.properties
+signing.properties
+.env
+.env.*

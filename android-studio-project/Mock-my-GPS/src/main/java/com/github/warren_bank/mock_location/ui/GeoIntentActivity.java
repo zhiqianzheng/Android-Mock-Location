@@ -1,3 +1,4 @@
+// Modified by zhiqianzheng on 2026-10-17: address-search fork changes, GPL-2.0; original notices retained.
 package com.github.warren_bank.mock_location.ui;
 
 // based on:
@@ -55,10 +56,13 @@ public class GeoIntentActivity extends Activity implements RuntimePermissions.Ru
             return;
         }
 
-        final LocPoint point = new LocPoint(
-            geoPoint.getLatitude(),
-            geoPoint.getLongitude()
-        );
+        final LocPoint point;
+        try {
+            point = new LocPoint(geoPoint.getLatitude(), geoPoint.getLongitude());
+        } catch (NumberFormatException e) {
+            handleNoData(e.getMessage());
+            return;
+        }
 
         boolean handled = false;
         if (intent.hasExtra(EXTRA_PURPOSE)) {

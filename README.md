@@ -1,3 +1,27 @@
+# 地址模拟 GPS / Address Mock GPS
+
+由 [@zhiqianzheng](https://github.com/zhiqianzheng) 维护的 [Mock my GPS](https://github.com/warren-bank/Android-Mock-Location) 改进版。原作者为 Warren Bank，保留原项目版权声明和 GPL-2.0 许可证。本次修改日期：2026-10-17，开发过程中使用 AI 辅助。
+
+输入中文地址或地点名称，选择搜索结果，即可自动填写 GPS 坐标并启动模拟定位，适用于个人设备上的地图与定位功能测试。
+
+## 本版本新增
+
+- 中文地址搜索：系统地址服务，或配置个人高德 Web 服务 Key。
+- 自动处理高德 GCJ-02 与 GPS WGS84 坐标，系统搜索坐标类型可切换。
+- 按名称调用已有书签，明确标记结果来源及城市范围结果。
+- 经纬度范围、NaN 和无穷值校验，避免错误输入启动模拟。
+- 独立应用包名，可与原版同时安装；同一时间请只运行一个模拟服务。
+
+详细使用方法、限制、构建步骤和验证记录见 [中文使用说明](README-address-search.md)。本仓库不包含用户 Key、个人书签、手机数据、签名私钥或构建缓存。
+
+## 许可证与来源
+
+本项目继续采用 [GPL-2.0](LICENSE.txt)。发布修改版时请保留作者及许可信息、注明修改，并按许可证提供对应源码。本 Fork 的维护与发布独立于上游项目。
+
+## 原项目说明
+
+以下保留上游项目的功能说明与截图。
+
 #### [Mock my GPS](https://github.com/warren-bank/Android-Mock-Location)
 
 Android app that mocks the GPS and Network location providers.

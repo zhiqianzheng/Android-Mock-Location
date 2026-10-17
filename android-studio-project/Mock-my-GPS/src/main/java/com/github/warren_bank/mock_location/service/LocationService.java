@@ -1,9 +1,11 @@
+// Modified by zhiqianzheng on 2026-10-17: address-search fork changes, GPL-2.0; original notices retained.
 package com.github.warren_bank.mock_location.service;
 
 import com.github.warren_bank.mock_location.R;
 import com.github.warren_bank.mock_location.data_model.LocPoint;
 import com.github.warren_bank.mock_location.service.looper.LocationThreadManager;
 import com.github.warren_bank.mock_location.ui.MainActivity;
+import com.github.warren_bank.mock_location.ui.AddressSearchActivity;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -115,7 +117,7 @@ public class LocationService extends Service {
             Notification.Builder builder = new Notification.Builder(/* context= */ LocationService.this, /* channelId= */ getNotificationChannelId());
 
             if (Build.VERSION.SDK_INT >= 31) {
-                builder.setContentTitle(getString(R.string.notification_service_content_line1));
+                builder.setContentTitle(getString(R.string.address_app_name));
                 builder.setContentText (getString(R.string.notification_service_content_line2));
                 builder.setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE);
             }
@@ -148,7 +150,7 @@ public class LocationService extends Service {
 
         RemoteViews contentView    = new RemoteViews(getPackageName(), R.layout.service_notification);
         contentView.setImageViewResource(R.id.notification_icon, R.drawable.launcher);
-        contentView.setTextViewText(R.id.notification_text_line1, getString(R.string.notification_service_content_line1));
+        contentView.setTextViewText(R.id.notification_text_line1, getString(R.string.address_app_name));
         contentView.setTextViewText(R.id.notification_text_line2, getString(R.string.notification_service_content_line2));
 
         if (Build.VERSION.SDK_INT < 31)
@@ -162,7 +164,7 @@ public class LocationService extends Service {
     }
 
     private PendingIntent getPendingIntent_MainActivity() {
-        Intent intent = new Intent(LocationService.this, MainActivity.class);
+        Intent intent = new Intent(LocationService.this, LTM.isFlyMode() ? MainActivity.class : AddressSearchActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         String current_tab_tag = (!LTM.isFlyMode())
